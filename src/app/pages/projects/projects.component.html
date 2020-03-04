@@ -1,0 +1,13 @@
+<div style="padding-top: 65px"></div>
+
+<p>projects works!</p>
+
+<pre>
+    {{tokens | json}}
+</pre>
+
+<table>
+    <tr *ngFor="let token of tokens">
+        <td><a [routerLink]="['/collect', token.projectID]">{{token.projectID}}</a></td>
+    </tr>
+</table>

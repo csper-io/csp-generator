@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <a [routerLink]="['/next', projectID]" class="btn btn-primary float-right">Next</a>
+
+    <h2>Inline Helper</h2>
+    <div *ngIf="reports.length">
+
+        <div *ngFor="let currentDirective of directives">
+            <div *ngIf="(reports | directive:currentDirective).length">
+                <h3>{{currentDirective}}</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th>Report</th>
+                            <th>Document URI</th>
+                            <th>Source File</th>
+                            <th>Line</th>
+                            <th>Column</th>
+                            <th>Script Sample</th>
+                        </tr>
+
+                        <tr *ngFor="let report of (reports | directive:currentDirective); index as reportIndex">
+                            <td><a class="btn btn-sm btn-primary"
+                                    [routerLink]="['/p', projectID, 'analysis', policyID, report.hash]">Info</a>
+                            </td>
+
+                            <td><a
+                                    href="{{report.documentURI}}">{{ (report.documentURI.length>70)? (report.documentURI | slice:0:70)+'..':(report.documentURI) }}</a>
+                            </td>
+                            <td>{{report.sourceFile}}</td>
+
+                            <!-- <td>{{report.documentURI}}</td> -->
+                            <td>{{report.lineNumber}}</td>
+                            <td>{{report.columnNumber}}</td>
+                            <td>{{report.scriptSample}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loaded && reports.length == 0" class="text-align: center" style="width: 100%">
+        <p class="text-align: center">No inline reports!</p>
+    </div>
+</div>

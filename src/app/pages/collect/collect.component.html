@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <a [routerLink]="['/inline', projectID]" class="btn btn-primary float-right">Next</a>
+
+    <h3>Step 2: Collect</h3>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>CSP is active, visit some pages on your website!</p>
+
+            <app-stat [value]="overview.totalReports" title="Total Reports"></app-stat>
+
+        </div>
+
+
+        <div class="col-sm-6">
+            <h5>Realtime</h5>
+            <app-realtime-chart (newReport)="overview.totalReports=overview.totalReports+1" [projectID]="projectID">
+            </app-realtime-chart>
+        </div>
+
+
+    </div>
+
+
+    <div class="clearfix">
+        <!-- <button class="float-right btn btn-secondary btn-sm" (click)="refreshRecommendations()">Refresh</button> -->
+        <h5>Constructed Policy</h5>
+    </div>
+    <div *ngIf="recommendations">
+        <app-policy-view [parsedPolicy]="recommendations.recommendedPolicyParsed">
+        </app-policy-view>
+    </div>
+</div>

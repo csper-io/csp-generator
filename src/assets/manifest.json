@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Csper Builder",
+    "version": "0.1",
+    "description": "The easiest way to get started with content security policy.",
+    "icons": {
+        "128": "assets/csper_128.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "128": "assets/csper_128.png"
+        },
+        "default_title": "Csper Builder",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "http://*/",
+        "https://*/",
+        "webRequestBlocking",
+        "webRequest",
+        "tabs"
+    ],
+    "content_security_policy": "default-src 'self'; script-src 'self' blob: filesystem: 'unsafe-eval'; style-src 'unsafe-inline'",
+    "author": "Stuart Larsen",
+    "homepage_url": "https://csper.io"
+}

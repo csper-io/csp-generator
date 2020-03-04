@@ -1,0 +1,12 @@
+#controls {
+    position: absolute; 
+    top: 0px; 
+    right: 0px; 
+    height: 30px; 
+    width: 150px; 
+    opacity: .3
+}
+
+#controls:hover, #controls:active  {
+    opacity: 1
+}

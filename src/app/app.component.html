@@ -1,25 +1,36 @@
+<ngx-loading-bar [color]="'#007bff'" [includeSpinner]='true'></ngx-loading-bar>
+
 <header>
-  <nav class="navbar navbar-expand navbar-light fixed-top">
-    <a class=" navbar-brand" href="#">
+  <nav class="navbar navbar-expand navbar-light fixed-top" [class.bg-white]="isScrolled" [class.shadow-lg]="isScrolled">
+    <a class=" navbar-brand" routerLink="/wizard">
       <img src="/assets/csper.webp" width="30" height="30" alt="logo"> Csper Builder
     </a>
 
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a (click)="showNav = false" class="nav-link text-dark" routerLink="/">New</a>
+        <a class="nav-link text-dark" routerLink="/">New</a>
       </li>
       <li class="nav-item">
-        <a (click)="showNav = false" class="nav-link text-dark" routerLink="/manual">Manual</a>
+        <a target="_blank" class="nav-link text-dark" href="https://csper.io">csper.io</a>
       </li>
-
+      <!-- <li class="nav-item">
+        <a class="nav-link text-dark" routerLink="/manual">Manual</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" routerLink="/debug">Debug</a>
+      </li> -->
     </ul>
-    <!-- <ul class="nav navbar-nav navbar-right">
-      <li class="nav-item">
-        <a (click)="showNav = false" class="nav-link text-dark" routerLink="/pricing">About</a>
-      </li>
-    </ul> -->
 
+    <ul class="nav navbar-nav" *ngIf="isKnownDomain">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1" (change)="toggle()"
+          [(ngModel)]="isActive">
+        <label *ngIf="isActive" class="custom-control-label text-primary" for="customSwitch1">Enabled</label>
+        <label *ngIf="!isActive" class="custom-control-label text-danger" for="customSwitch1">Disabled</label>
+
+      </div>
+    </ul>
   </nav>
 </header>
-<div style="padding-top: 65px"></div>
+<div style="padding-top: 55px"></div>
 <router-outlet></router-outlet>

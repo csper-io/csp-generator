@@ -10,6 +10,8 @@ import { isNullID } from 'src/app/utils/utils';
 import { forkJoin } from 'rxjs';
 import { Recommendations, BuilderRecommendations } from 'src/app/models/recommendations';
 import { RecommendationService } from 'src/app/services/recommendation.service';
+import { ExtensionService } from 'src/app/services/extension.service';
+import { BuilderState } from 'src/app/models/builderstate';
 
 @Component({
   selector: 'app-collect',
@@ -17,6 +19,7 @@ import { RecommendationService } from 'src/app/services/recommendation.service';
   styleUrls: ['./collect.component.css']
 })
 export class CollectComponent implements OnInit {
+  domain: string
 
   projectID: string
   policyID: string
@@ -27,32 +30,46 @@ export class CollectComponent implements OnInit {
   endpointURL: string
   starterPolicy: string
 
+  state: BuilderState
+
   overview: Overview
   recommendations: BuilderRecommendations
 
   lastPolicy: Policy
 
   constructor(private projectService: ProjectService, private route: ActivatedRoute,
-    private policyService: PolicyService, private recommendationService: RecommendationService) {
+    private policyService: PolicyService, private recommendationService: RecommendationService,
+    private extensionService: ExtensionService) {
     this.overview = {
       totalReports: 0
     } as Overview
   }
 
   ngOnInit() {
-    this.projectID = this.route.snapshot.paramMap.get("projectID")
+    this.extensionService.getCurrentDomain().subscribe((domain) => {
+      this.domain = domain
 
-    this.projectService.getProjectOverview(this.projectID).subscribe((o) => {
-      if (this.overview.totalReports > 0) {
-        let t = this.overview.totalReports
-        this.overview = o
-        this.overview.totalReports += t
-      } else {
-        this.overview = o
-      }
+      this.extensionService.getStateByDomain(this.domain).subscribe((s) => {
+        this.state = s
+        this.projectID = this.state.projectID
+
+        this.projectService.getProjectOverview(this.projectID).subscribe((o) => {
+          if (this.overview.totalReports > 0) {
+            let t = this.overview.totalReports
+            this.overview = o
+            this.overview.totalReports += t
+          } else {
+            this.overview = o
+          }
+
+          if (this.overview.totalReports == 0) {
+            this.extensionService.refreshPage()
+          }
+        })
+
+        this.refreshRecommendations()
+      })
     })
-
-    this.refreshRecommendations()
   }
 
   refreshRecommendations() {
@@ -71,6 +88,9 @@ export class CollectComponent implements OnInit {
         this.recommendations = r
       })
     })
+  }
 
+  deleteState() {
+    this.extensionService.deleteState(this.state)
   }
 }

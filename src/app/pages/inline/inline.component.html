@@ -1,33 +1,32 @@
-<div class="container-fluid">
-    <a [routerLink]="['/next', projectID]" class="btn btn-primary float-right">Next</a>
+<div class="container-fluid" style="padding-top: 20px">
+    <a [routerLink]="['/wizard', 'deploy']" class="btn btn-primary float-right">Next</a>
 
-    <h2>Inline Helper</h2>
+    <h5>Inline Helper</h5>
+    <p>For content-security-policy to work correctly, there shouldn't be any inline resources. Here is all the inline
+        resources found that need to be moved to their own file. <a target="_blank"
+            href="https://docs.csper.io/guides/how-to-remove-inline-resources">More Info</a></p>
     <div *ngIf="reports.length">
 
         <div *ngFor="let currentDirective of directives">
             <div *ngIf="(reports | directive:currentDirective).length">
-                <h3>{{currentDirective}}</h3>
+                <h5>{{currentDirective}}</h5>
 
                 <div class="table-responsive">
                     <table class="table table-condensed">
                         <tr>
-                            <th>Report</th>
-                            <th>Document URI</th>
-                            <th>Source File</th>
+                            <th>Location</th>
                             <th>Line</th>
                             <th>Column</th>
                             <th>Script Sample</th>
                         </tr>
 
                         <tr *ngFor="let report of (reports | directive:currentDirective); index as reportIndex">
-                            <td><a class="btn btn-sm btn-primary"
-                                    [routerLink]="['/p', projectID, 'analysis', policyID, report.hash]">Info</a>
+
+                            <td><a target="_blank"
+                                    href="{{report.documentURI}}">{{ (report.documentURI.length>70)? (report.documentURI | slice:0:70)+'..':(report.documentURI) }}</a>
+                                <br> <a target="_blank" href="{{report.sourceFile}}">{{report.sourceFile}}</a>
                             </td>
 
-                            <td><a
-                                    href="{{report.documentURI}}">{{ (report.documentURI.length>70)? (report.documentURI | slice:0:70)+'..':(report.documentURI) }}</a>
-                            </td>
-                            <td>{{report.sourceFile}}</td>
 
                             <!-- <td>{{report.documentURI}}</td> -->
                             <td>{{report.lineNumber}}</td>

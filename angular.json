@@ -48,6 +48,11 @@
                 "glob": "manifest.json",
                 "input": "src/assets",
                 "output": "/"
+              },
+              {
+                "glob": "background.js",
+                "input": "src/assets",
+                "output": "/"
               }
             ],
             "styles": [
@@ -120,6 +125,11 @@
               "src/assets",
               {
                 "glob": "manifest.json",
+                "input": "src/assets",
+                "output": "/"
+              },
+              {
+                "glob": "background.js",
                 "input": "src/assets",
                 "output": "/"
               }

@@ -1,0 +1,41 @@
+<div class="container-fluid" style="padding-top: 20px">
+    <div class="row">
+        <div class="col-6">
+            <h5>Deploy</h5>
+
+            <p>Congrats! It's time to deploy the policy.</p>
+
+            <p>We strongly recommend using 'Content-Security-Policy-Report-Only' mode for a while to ensure the policy
+                is working correctly without harming your website.</p>
+
+            <p><a target="_blank" href="https://docs.csper.io/how-to-roll-out-content-security-policy">How-To: Deploy
+                    CSP</a></p>
+
+            <div class="clearfix">
+                <h5>Email Report</h5>
+                <div class="form-group">
+                    <label>Email Addresses (coma separated)</label>
+                    <input [(ngModel)]="emails" class="form-control">
+                </div>
+                <button (click)="sendEmail()" class="btn btn-primary">Email Results</button>
+                <p class="text-success" *ngIf="isEmailsSent">Sent!</p>
+            </div>
+
+            <div class="pt-2">
+                <h5>More</h5>
+                <button (click)="goToProject()" class="btn btn-secondary">View Detailed Results on
+                    csper.io</button>
+                <button (click)="deleteProject()" class="btn btn-danger">Delete Project</button>
+            </div>
+        </div>
+
+
+        <div class="col-6">
+            <strong>Content-Security-Policy-Report-Only</strong>
+            <div *ngIf="recommendations">
+                <app-policy-view [parsedPolicy]="recommendations.recommendedPolicyParsed">
+                </app-policy-view>
+            </div>
+        </div>
+    </div>
+</div>

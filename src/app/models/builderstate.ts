@@ -1,13 +1,12 @@
 
-export interface APIToken {
+export interface BuilderState {
     id: string
     ts: string
 
     projectID: string
-    role: string
-
-    comment: string
     token: string
 
+    domain: string
     isEnabled: boolean
+    policy: string
 }

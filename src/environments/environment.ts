@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  origin: "",
-  wsOrigin: "localhost:8080"
+  //origin: "",
+  //wsOrigin: "localhost:8080"
+  origin: "https://csper.club",
+  wsOrigin: "csper.club"
 };
 
 /*

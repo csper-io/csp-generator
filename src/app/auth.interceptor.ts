@@ -1,26 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { APITokenService } from './services/apitoken.service'
+import { map, mergeMap, tap } from 'rxjs/operators';
+import { ExtensionService } from './services/extension.service';
+import { APIToken } from './models/apitoken';
+import { environment } from 'src/environments/environment';
+import { BuilderState } from './models/builderstate';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    constructor(private tokenService: APITokenService) { }
+    constructor(private extensionService: ExtensionService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let projectID = ""
-        if (request.url.startsWith("/api/projects/")) {
-            projectID = request.url.substring("/api/projects/".length, "/api/projects/".length + 24)
+
+        if (request.url.startsWith(environment.origin + "/api/projects/")) {
+            var start = (environment.origin + "/api/projects/").length
+            projectID = request.url.substring(start, start + 24)
         }
 
-        if (projectID.length == 24 && this.tokenService.isKnownProjectID(projectID)) {
-            let apitoken = this.tokenService.getTokenByProjectID(projectID)
+        console.log("auth.interceptor.ts projectID:", projectID)
 
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${apitoken.id}:${apitoken.token}`
-                }
-            });
+        if (projectID.length == 24 && projectID.match(/^[0-9a-z]+$/)) {
+            console.log("auth.interceptor.ts match!")
+            return this.extensionService.getStateByProjectID(projectID).pipe(
+                tap((token: BuilderState) => {
+                    console.log("[+] auth.interceptor.ts: projectID", projectID, "token", token)
+                }),
+                mergeMap((apitoken: BuilderState) => {
+                    request = request.clone({
+                        setHeaders: {
+                            Authorization: `Bearer ${apitoken.id}:${apitoken.token}`
+                        }
+                    });
+                    return next.handle(request);
+                })
+            )
         }
 
         return next.handle(request);

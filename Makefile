@@ -1,5 +1,15 @@
-run:
+run: background-script
+	ng build --watch
+
+run-local:
 	npm start
+
+release: background-script
+	ng build --prod 
+
+background-script:
+	tsc --project background/tsconfig.json
+	cp background/dist/background/background.js src/assets/
 
 copy-asset:
 	cp ../csper-ui/src/assets/csper.webp src/assets/

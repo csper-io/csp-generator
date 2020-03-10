@@ -8,6 +8,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { isNullID } from 'src/app/utils/utils';
+import { ExtensionService } from 'src/app/services/extension.service';
+import { BuilderState } from 'src/app/models/builderstate';
 
 @Component({
   selector: 'app-inline',
@@ -15,6 +17,9 @@ import { isNullID } from 'src/app/utils/utils';
   styleUrls: ['./inline.component.css']
 })
 export class InlineComponent implements OnInit {
+
+  domain: string
+  builderState: BuilderState
 
   policies: Policy[]
   projectID: string
@@ -36,7 +41,8 @@ export class InlineComponent implements OnInit {
   constructor(private reportService: ReportService,
     private policyService: PolicyService,
     private projectService: ProjectService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private extensionService: ExtensionService) {
 
     this.directives = policyService.directives
     this.reports = []
@@ -45,17 +51,23 @@ export class InlineComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectID = this.route.snapshot.paramMap.get('projectID')
+    this.extensionService.getCurrentDomain().subscribe((d) => {
+      this.domain = d;
 
-    forkJoin(this.projectService.getProject(this.projectID), this.policyService.getPolicies(this.projectID)).subscribe(([project, policies]) => {
-      this.project = project;
-      this.policies = policies;
+      this.extensionService.getStateByDomain(this.domain).subscribe((s) => {
+        this.builderState = s;
+        this.projectID = this.builderState.projectID
 
-      this.policyID = this.project.primaryPolicy
+        forkJoin(this.projectService.getProject(this.projectID), this.policyService.getPolicies(this.projectID)).subscribe(([project, policies]) => {
+          this.project = project;
+          this.policies = policies;
 
-      this.loadReports()
+          this.policyID = this.project.primaryPolicy
+
+          this.loadReports()
+        })
+      })
     })
-
   }
 
   loadReports() {

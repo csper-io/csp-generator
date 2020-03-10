@@ -4,16 +4,18 @@ import { Observable } from 'rxjs';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { Report } from '../models/report';
 import { Timeseries } from '../models/timeseries';
-import { retryWhen, delay, tap } from 'rxjs/operators';
+import { retryWhen, delay, tap, map, flatMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { APITokenService } from './apitoken.service';
+import { ExtensionService } from './extension.service';
+import { APIToken } from '../models/apitoken';
+import { BuilderState } from '../models/builderstate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
-  constructor(private http: HttpClient, private tokenService: APITokenService) { }
+  constructor(private http: HttpClient, private extensionService: ExtensionService) { }
 
   getReports(projectID: string, group: boolean): Observable<Report[]> {
     return this.http.get<Report[]>(`${environment.origin}/api/projects/${projectID}/reports?group=${group}`)
@@ -43,24 +45,26 @@ export class ReportService {
       origin = "wss://" + origin
     }
 
-    let apitoken = this.tokenService.getTokenByProjectID(projectID)
+    return this.extensionService.getStateByProjectID(projectID).pipe(
+      flatMap((apitoken: BuilderState) => {
+        let subject = webSocket<Report>(origin)
+        // @ts-ignore
+        subject.next(apitoken)
 
-    let subject = webSocket<Report>(origin)
-    // @ts-ignore
-    subject.next(apitoken)
+        return subject.pipe(
+          retryWhen(errors =>
+            errors.pipe(
+              tap(err => {
+                console.error('Error reconnecting', err);
 
-    return subject.pipe(
-      retryWhen(errors =>
-        errors.pipe(
-          tap(err => {
-            console.error('Error reconnecting', err);
-
-            // @ts-ignore
-            subject.next(apitoken)
-          }),
-          delay(1000)
+                // @ts-ignore
+                subject.next(apitoken)
+              }),
+              delay(1000)
+            )
+          )
         )
-      )
+      })
     )
   }
 

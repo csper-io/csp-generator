@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StartComponent } from './pages/start/start.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
-import { ProjectComponent } from './pages/project/project.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth.interceptor';
 import { CollectComponent } from './pages/collect/collect.component';
@@ -19,34 +17,45 @@ import { StatComponent } from './components/stat/stat.component';
 
 import { ChartsModule } from 'ng2-charts';
 import { RealtimeChartComponent } from './components/realtime-chart/realtime-chart.component';
-import { BuildComponent } from './pages/build/build.component';
-import { NextComponent } from './pages/next/next.component';
 import { InlineComponent } from './pages/inline/inline.component';
 import { DirectivePipe } from './pipes/directive.pipe';
+import { DebugComponent } from './pages/debug/debug.component';
+import { HomeComponent } from './pages/home/home.component';
+import { WizardComponent } from './pages/wizard/wizard.component';
+import { DeployComponent } from './pages/deploy/deploy.component';
+import { ManualComponent } from './pages/manual/manual.component';
+
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     StartComponent,
-    ProjectsComponent,
-    ProjectComponent,
     CollectComponent,
 
     PolicyViewComponent,
     ReportChartComponent,
     RealtimeChartComponent,
-    BuildComponent,
-    NextComponent,
     StatComponent,
     InlineComponent,
     DirectivePipe,
+    DebugComponent,
+    HomeComponent,
+    WizardComponent,
+    DeployComponent,
+    ManualComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ChartsModule,
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
+    LoadingBarModule,
   ],
 
   providers: [

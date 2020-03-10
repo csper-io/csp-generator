@@ -34,4 +34,8 @@ export class ProjectService {
   createInviteLink(projectID: string): Observable<ProjectInvite> {
     return this.http.post<ProjectInvite>(`${environment.origin}/api/projects/${projectID}/inviteLink`, { "role": "ADMIN" })
   }
+
+  sendSummaryEmail(projectID, emails: string): Observable<any> {
+    return this.http.post(`${environment.origin}/api/projects/${projectID}/summary`, { "emails": emails })
+  }
 }

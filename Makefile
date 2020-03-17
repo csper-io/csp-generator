@@ -6,6 +6,8 @@ run-local:
 
 release: background-script
 	ng build --prod 
+	# For firefox, compress all the invidivual files
+	# FOr chrome, compress the folder
 
 background-script:
 	tsc --project background/tsconfig.json

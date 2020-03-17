@@ -24,7 +24,8 @@ export class ExtensionService {
     if (chrome && chrome.tabs) {
 
       return Observable.create(observer => {
-        const domainCallback = (tab: chrome.tabs.Tab) => {
+        const domainCallback = (tabs: chrome.tabs.Tab[]) => {
+          let tab = tabs[0]
           this.zone.run(() => {
             var matches = tab.url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
             var domain = matches && matches[1];
@@ -32,7 +33,11 @@ export class ExtensionService {
             observer.complete()
           })
         }
-        chrome.tabs.getSelected(null, domainCallback)
+
+        chrome.tabs.query({
+          active: true,
+          lastFocusedWindow: true
+        }, domainCallback)
       })
     } else {
       return of(window.location.hostname)

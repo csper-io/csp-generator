@@ -28,13 +28,15 @@ export class AppComponent implements OnInit {
     this.extensionService.getCurrentDomain().subscribe((d) => {
       this.domain = d;
       this.checkIfActive()
+
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.checkIfActive()
+        }
+      })
     })
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.checkIfActive()
-      }
-    })
+
   }
 
   checkIfActive() {

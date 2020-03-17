@@ -71,7 +71,9 @@ export class InlineComponent implements OnInit {
   }
 
   loadReports() {
+    console.log("loading reports")
     this.reportService.getReportsFiltered(this.projectID, this.policyID, "", true, "", "", -1, -1).subscribe((reports) => {
+      console.log(reports)
       this.reports = [];
       for (let i = 0; i < reports.length; i++) {
         let report = reports[i];

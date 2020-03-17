@@ -37,7 +37,7 @@ export class StartComponent implements OnInit {
     this.projectService.newTempProject(this.domain).subscribe((token) => {
       this.token = token
       var newBuilderState = token as unknown as BuilderState
-      let endpointURL = `https://${this.token.projectID}.endpoint.${environment.origin.replace("https://", "")}`
+      let endpointURL = `https://${this.token.projectID}.endpoint.${environment.origin.replace("https://", "")}/`
       let starterPolicy = "default-src 'self'; script-src 'self' 'report-sample'; style-src 'self' 'report-sample'; base-uri 'self'; object-src 'none'; report-uri " + endpointURL + ";"
 
       newBuilderState.isEnabled = true

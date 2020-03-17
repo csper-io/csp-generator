@@ -1,6 +1,13 @@
 {
     "manifest_version": 2,
     "name": "Csper Builder",
+    "short_name": "Csper Builder",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "stuart@csper.io",
+            "strict_min_version": "57.0"
+        }
+    },
     "version": "0.2",
     "description": "The easiest way to get started with content security policy.",
     "icons": {

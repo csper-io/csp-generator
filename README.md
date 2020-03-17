@@ -1,5 +1,7 @@
 # Csper-Builder
 
+<img src="/src/assets/csper.webp" width="128">
+
 Csper-Builder is a chrome extension that helps build a Content-Security-Policy for any website. 
 
 It can be downloaded here:
@@ -8,5 +10,4 @@ It can be downloaded here:
 
 ### Other
 * https://csper.io
-
 

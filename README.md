@@ -1,4 +1,4 @@
-# Csper-Builder
+# csp-generator
 
 <img src="/src/assets/csper.webp" width="128">
 

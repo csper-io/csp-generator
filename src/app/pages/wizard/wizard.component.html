@@ -1,14 +1,7 @@
-<style>
-    .wizard-button:disabled {
-        opacity: 1;
-    }
-</style>
-
-<div style="position: relative">
-    <div
-        style="height: 2px; border: 1px solid #6c757d; top: 50%; position: absolute; left: 0; right: 0; width: 80%; margin: 0 auto; z-index: -1">
+<div class="position-relative">
+    <div class="wizard-border">
     </div>
-    <div class="row" style="text-align: center">
+    <div class="row text-center">
         <div class="col-3">
             <button class="wizard-button btn btn-sm" [class.btn-light]="step != 'start'"
                 [class.btn-primary]="step=='start'" [routerLink]=" ['/wizard', 'start' ]">1. Start</button>

@@ -11,3 +11,13 @@ It can be downloaded here:
 ### Other
 * https://csper.io
 
+### Building
+
+make install
+make release
+
+Versions
+node v12.13.1
+npm 6.12.1 
+tsc 3.8.3
+macos 10.15.2

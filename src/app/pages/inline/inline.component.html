@@ -1,10 +1,10 @@
-<div class="container-fluid" style="padding-top: 20px">
+<div class="container-fluid pt-2">
     <a [routerLink]="['/wizard', 'deploy']" class="btn btn-primary float-right">Next</a>
 
     <h5>Inline Helper</h5>
     <p>For content-security-policy to work correctly, there shouldn't be any inline resources. Here is all the inline
         resources found that need to be moved to their own file. <a target="_blank"
-            href="https://docs.csper.io/guides/how-to-remove-inline-resources">More Info</a></p>
+            href="https://csper.io/docs/guide-removing-inline">More Info</a></p>
     <div *ngIf="reports.length">
 
         <div *ngFor="let currentDirective of directives">
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="loaded && reports.length == 0" class="text-align: center" style="width: 100%">
-        <p class="text-align: center">No inline reports!</p>
+    <div *ngIf="loaded && reports.length == 0" class="text-center w-100">
+        <p class="text-center">No inline reports!</p>
     </div>
 </div>

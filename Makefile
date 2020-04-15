@@ -1,11 +1,22 @@
 run: background-script
-	ng build --watch
+	ng build --watch --prod
+	# web-ext run --verbose
+
+install:
+	rm -f package-lock.json
+	rm -f node_modules
+	npm install -g typescript
+	npm install -g @angular/cli
+	npm install -g web-ext
+	npm install
 
 run-local:
 	npm start
 
 release: background-script
-	ng build --prod 
+	ng build --aot --prod  --output-hashing=none
+	web-ext build --source-dir=./dist/csper-builder --overwrite-dest --artifacts-dir=./dist
+
 	# For firefox, compress all the invidivual files
 	# FOr chrome, compress the folder
 

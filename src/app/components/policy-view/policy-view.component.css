@@ -10,3 +10,12 @@
 #controls:hover, #controls:active  {
     opacity: 1
 }
+
+.policy-view-button{
+    width: 50px;  font-size: 8px
+}
+
+.directive-indent {
+    text-indent:-1.5em;
+    padding-left: 1.5em;
+}

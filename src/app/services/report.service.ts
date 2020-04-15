@@ -15,6 +15,8 @@ import { BuilderState } from '../models/builderstate';
 })
 export class ReportService {
 
+  report$: WebSocketSubject<Report>
+
   constructor(private http: HttpClient, private extensionService: ExtensionService) { }
 
   getReports(projectID: string, group: boolean): Observable<Report[]> {
@@ -37,6 +39,13 @@ export class ReportService {
     return this.http.get<Report[]>(`${environment.origin}/api/projects/${projectID}/reports?policy=${policyID}&hash=${hash}`)
   }
 
+  closeReportWS() {
+    if (this.report$) {
+      this.report$.complete()
+      this.report$ = null;
+    }
+  }
+
   getReportsWS(projectID: string): Observable<Report> {
     let origin = `${environment.wsOrigin}/api/projects/${projectID}/reports/ws`
     if (window.location.protocol == "http:") {
@@ -47,18 +56,20 @@ export class ReportService {
 
     return this.extensionService.getStateByProjectID(projectID).pipe(
       flatMap((apitoken: BuilderState) => {
-        let subject = webSocket<Report>(origin)
-        // @ts-ignore
-        subject.next(apitoken)
+        //@ts-ignore
+        this.report$ = webSocket<Report>(origin)
 
-        return subject.pipe(
+        // @ts-ignore
+        this.report$.next(apitoken)
+
+        return this.report$.pipe(
           retryWhen(errors =>
             errors.pipe(
               tap(err => {
                 console.error('Error reconnecting', err);
 
                 // @ts-ignore
-                subject.next(apitoken)
+                this.report$.next(apitoken)
               }),
               delay(1000)
             )

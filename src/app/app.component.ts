@@ -12,7 +12,7 @@ import { noop } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Csper Builder';
+  title = 'CSP Generator';
 
   isScrolled: boolean
   domain: string

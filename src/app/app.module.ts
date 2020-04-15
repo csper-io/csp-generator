@@ -11,7 +11,6 @@ import { TokenInterceptor } from './auth.interceptor';
 import { CollectComponent } from './pages/collect/collect.component';
 
 import { PolicyViewComponent } from './components/policy-view/policy-view.component';
-import { ReportChartComponent } from './components/report-chart/report-chart.component';
 import { StatComponent } from './components/stat/stat.component';
 
 
@@ -37,7 +36,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     CollectComponent,
 
     PolicyViewComponent,
-    ReportChartComponent,
     RealtimeChartComponent,
     StatComponent,
     InlineComponent,

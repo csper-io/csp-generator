@@ -1,15 +1,14 @@
-<div style="position: relative" *ngIf="parsedPolicy">
+<div class="position-relative" *ngIf="parsedPolicy">
 
     <div *ngIf="displayMode == 'small'">
-        <textarea rows="1" class="form-control" disabled [(ngModel)]="policyStr"></textarea>
+        <textarea rows="1" class="form-control" readonly [(ngModel)]="policyStr"></textarea>
     </div>
 
     <div *ngIf="displayMode == 'pretty'">
 
         <div class="card">
             <div class="card-body">
-                <div *ngFor="let directive of parsedPolicy.directiveOrder"
-                    style="padding-left: 1.5em; text-indent:-1.5em;">
+                <div *ngFor="let directive of parsedPolicy.directiveOrder" class="directive-indent">
                     <span class="text-primary">{{directive}}</span>
                     <span *ngFor="let source of parsedPolicy.directives[directive]">
                         <span [ngClass]="{
@@ -27,21 +26,16 @@
             </div>
         </div>
 
-        <!-- <textarea class="form-control" disabled autosize>{{pretty}}</textarea> -->
     </div>
 
     <div *ngIf="displayMode == 'full'">
-        <textarea class="form-control" disabled autosize>{{policyStr}}</textarea>
+        <textarea class="form-control" readonly autosize>{{policyStr}}</textarea>
     </div>
     <div id="controls" class="btn-group btn-group-toggle float-right btn-sm" data-toggle="buttons">
-        <label class="btn btn-secondary active btn-sm" (click)="displayMode = 'small'"
-            style="width: 50px; font-size: 8px">
-            <input type="radio" name="options" value="small" checked>Small
-        </label>
-        <label class="btn btn-secondary btn-sm" (click)="displayMode = 'full'" style="width: 50px;  font-size: 8px">
+        <label class="btn btn-secondary btn-sm policy-view-button" (click)="displayMode = 'full'">
             <input type="radio" name="options"> Full
         </label>
-        <label class="btn btn-secondary btn-sm" (click)="displayMode = 'pretty'" style="width: 50px;  font-size: 8px">
+        <label class="btn btn-secondary btn-sm policy-view-button" (click)="displayMode = 'pretty'">
             <input type="radio" name="options"> Pretty
         </label>
     </div>

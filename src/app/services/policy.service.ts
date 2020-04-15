@@ -19,6 +19,11 @@ export class PolicyService {
       "referrer", "require-sri-for", "upgrade-insecure-requests"]
   }
 
+  defaultPolicy(projectID: string): string {
+    let endpointURL = `https://${projectID}.endpoint.${environment.origin.replace("https://", "")}/`
+    return "default-src 'self'; script-src 'self' 'report-sample'; style-src 'self' 'report-sample'; base-uri 'self'; object-src 'none'; connect-src 'self'; font-src 'self'; frame-src 'self'; img-src 'self'; manifest-src 'self'; media-src 'self'; worker-src 'none'; report-uri " + endpointURL + ";"
+  }
+
   parsePolicy(policy: string): Observable<ParsedPolicy> {
     return this.http.post<ParsedPolicy>(`${environment.origin}/api/policies/parse`, { "policy": policy })
   }

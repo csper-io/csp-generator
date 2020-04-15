@@ -78,12 +78,11 @@ export class CollectComponent implements OnInit {
       this.policies = policies;
 
       if (!this.policies || this.policies.length == 0) {
-        this.starterPolicy = `default-src 'self'; script-src 'self' 'report-sample'; style-src 'self' 'report-sample'; base-uri 'self'; form-action 'self'; object-src 'none';`
+        let starterPolicy = this.policyService.defaultPolicy(this.project.id)
         return
       }
 
-      console.log(this.policies)
-      this.policyID = this.policies[this.policies.length - 1].id
+      this.policyID = this.project.primaryPolicy
       this.recommendationService.getAllAcceptedBuilderRecommendations(this.projectID, this.policyID).subscribe((r) => {
         this.recommendations = r
       })

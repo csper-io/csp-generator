@@ -46,7 +46,7 @@ export class ExtensionService {
 
   refreshPage() {
     if (chrome && chrome.tabs) {
-      chrome.tabs.reload()
+      chrome.tabs.reload({ bypassCache: true })
     }
   }
 
@@ -151,8 +151,6 @@ export class ExtensionService {
           throw throwError("no token for projectID: " + projectID);
         }
         return JSON.parse(i) as BuilderState
-
-        return JSON.parse(i)
       })
     )
   }

@@ -7,7 +7,7 @@ export const environment = {
   //origin: "",
   //wsOrigin: "localhost:8080"
   origin: "https://csper.club",
-  wsOrigin: "csper.club"
+  wsOrigin: "csper.club",
 };
 
 /*

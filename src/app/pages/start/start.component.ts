@@ -23,7 +23,8 @@ export class StartComponent implements OnInit {
     private extensionService: ExtensionService,
     private router: Router,
     private policyService: PolicyService,
-    public zone: NgZone
+    public zone: NgZone,
+
   ) {
   }
 
@@ -37,8 +38,7 @@ export class StartComponent implements OnInit {
     this.projectService.newTempProject(this.domain).subscribe((token) => {
       this.token = token
       var newBuilderState = token as unknown as BuilderState
-      let endpointURL = `https://${this.token.projectID}.endpoint.${environment.origin.replace("https://", "")}/`
-      let starterPolicy = "default-src 'self'; script-src 'self' 'report-sample'; style-src 'self' 'report-sample'; base-uri 'self'; object-src 'none'; report-uri " + endpointURL + ";"
+      let starterPolicy = this.policyService.defaultPolicy(this.token.projectID)
 
       newBuilderState.isEnabled = true
       newBuilderState.policy = starterPolicy

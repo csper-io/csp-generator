@@ -1,0 +1,7 @@
+.wizard-button:disabled {
+    opacity: 1;
+}
+
+.wizard-border {
+    height: 2px; border: 1px solid #6c757d; top: 50%; position: absolute; left: 0; right: 0; width: 80%; margin: 0 auto; z-index: -1;
+}

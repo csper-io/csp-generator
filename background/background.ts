@@ -2,7 +2,6 @@
 
 import { BuilderState } from '../src/app/models/builderstate'
 
-
 var cache = {}
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
@@ -24,15 +23,13 @@ chrome.webRequest.onHeadersReceived.addListener(
             return;
         }
 
-        var matches = details.url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-        var domain = matches && matches[1];
+        let domain = new URL(details.url).hostname;
 
         if (domain === null) {
             return;
         }
 
         let apitoken = cache[domain] as BuilderState
-        console.log("chrome.webRequest.onHeadersReceived", domain, apitoken)
 
         if (!apitoken || !apitoken.isEnabled) {
             return { responseHeaders: details.responseHeaders }

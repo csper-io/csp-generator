@@ -14,13 +14,11 @@ chrome.webRequest.onHeadersReceived.addListener(function (details) {
     if (details.type !== 'main_frame') {
         return;
     }
-    var matches = details.url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-    var domain = matches && matches[1];
+    let domain = new URL(details.url).hostname;
     if (domain === null) {
         return;
     }
     let apitoken = cache[domain];
-    console.log("chrome.webRequest.onHeadersReceived", domain, apitoken);
     if (!apitoken || !apitoken.isEnabled) {
         return { responseHeaders: details.responseHeaders };
     }

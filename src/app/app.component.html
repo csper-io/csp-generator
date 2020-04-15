@@ -3,7 +3,7 @@
 <header>
   <nav class="navbar navbar-expand navbar-light fixed-top" [class.bg-white]="isScrolled" [class.shadow-lg]="isScrolled">
     <a class=" navbar-brand" routerLink="/wizard">
-      <img src="/assets/csper.webp" width="30" height="30" alt="logo"> Csper Builder
+      <img src="/assets/csper.webp" width="30" height="30" alt="logo"> CSP Generator
     </a>
 
     <ul class="navbar-nav mr-auto">
@@ -13,12 +13,6 @@
       <li class="nav-item">
         <a target="_blank" class="nav-link text-dark" href="https://csper.io">csper.io</a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link text-dark" routerLink="/manual">Manual</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" routerLink="/debug">Debug</a>
-      </li> -->
     </ul>
 
     <ul class="nav navbar-nav" *ngIf="isKnownDomain">
@@ -32,5 +26,5 @@
     </ul>
   </nav>
 </header>
-<div style="padding-top: 55px"></div>
+<div class="push-top"></div>
 <router-outlet></router-outlet>

@@ -75,6 +75,10 @@ export class RealtimeChartComponent implements OnInit {
     };
   }
 
+  ngOnDestroy() {
+    this.reportService.closeReportWS();
+  }
+
   ngOnInit() {
     this.projectService.getProject(this.projectID).subscribe((p) => { this.project = p })
 

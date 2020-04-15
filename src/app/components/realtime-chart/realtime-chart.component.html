@@ -1,4 +1,4 @@
-<div style="display: block;" *ngIf="realtimeChartData.length > 0">
+<div class="d-block" *ngIf="realtimeChartData.length > 0">
     <canvas baseChart [datasets]="realtimeChartData" [labels]="realtimeChartLabels" [options]="realtimeChartOptions"
         chartType="line"></canvas>
 </div>

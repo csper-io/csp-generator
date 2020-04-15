@@ -1,11 +1,12 @@
-# csp-generator
+# Csper-Builder
 
 <img src="/src/assets/csper.webp" width="128">
 
-csp-generator is a firefox addon that automatically generates content security policy headers for any website in minutes.
+Csper-Builder is a chrome extension that helps build a Content-Security-Policy for any website. 
 
 It can be downloaded here:
-* Firefox: https://addons.mozilla.org/en-US/firefox/addon/csp-generator/
+* Firefox: https://addons.mozilla.org/en-US/firefox/addon/csper-builder/
+* Chrome:  https://chrome.google.com/webstore/detail/csper-builder/ahlnecfloencbkpfnpljbojmjkfgnmdc
 
 ### Other
 * https://csper.io

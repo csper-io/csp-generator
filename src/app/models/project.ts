@@ -1,24 +1,30 @@
+import { Report } from './report';
+
 export interface Project {
     id: string
     name: string
     ts: string
 
+    organizationID: string
+    organizationName: string
+    organizationPlanName: string
+
     primaryPolicy: string
 
-    planName: string
-    reportQuotaLimit: number
-    subscriptionID: string
-    customerID: string
-    checkoutSessionID: string
-
     dailyEmailList: string[]
-    newReportAlertEmailList: string[]
 
-    members: Membership[]
-    invites: Membership[]
+    members: Member
+    invites: Member[]
+
+    // Aggregations
+    billingCycleStart: string
+    reportCountBillingCycle: number
+    reportCount: number
+    lastReport: Report
+    openAlertEvents: number
 }
 
-interface Membership {
+export interface Member {
     email: string
     role: string
 

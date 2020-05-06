@@ -1,5 +1,6 @@
 run: background-script
 	ng build --watch --prod
+	# cd dist/csper-builder
 	# web-ext run --verbose
 
 install:

@@ -28,7 +28,7 @@
         "tabs",
         "storage"
     ],
-    "content_security_policy": "script-src 'self'; object-src 'none'; connect-src wss://csper.io wss://csper.club https://csper.io https://csper.club",
+    "content_security_policy": "script-src  'self'; object-src 'none'; connect-src wss://csper.io wss://csper.club https://csper.io https://csper.club",
     "author": "Stuart Larsen",
     "homepage_url": "https://csper.io",
     "background": {

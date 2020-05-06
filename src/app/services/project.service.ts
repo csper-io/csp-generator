@@ -17,7 +17,6 @@ export class ProjectService {
   newTempProject(name: string): Observable<APIToken> {
     let newProject: Project = {
       name: name,
-      planName: "TEMP",
     } as Project
 
     return this.http.post<APIToken>(`${environment.origin}/api/projects/temp`, newProject)

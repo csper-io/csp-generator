@@ -1,15 +1,21 @@
 run: background-script
-	ng build --watch --prod
+	ng build --watch 
 	# cd dist/csper-builder
 	# web-ext run --verbose
 
 install:
-	rm -f package-lock.json
-	rm -f node_modules
+	rm -rf node_modules
+	npm install
 	npm install -g typescript
 	npm install -g @angular/cli
 	npm install -g web-ext
-	npm install
+
+versions:
+	# macos 10.15.2 (19C57)
+	node --version
+	npm --version
+	tsc --version
+	ng v | grep 'Angular CLI
 
 run-local:
 	npm start
@@ -20,6 +26,7 @@ release: background-script
 
 	# For firefox, compress all the invidivual files
 	# FOr chrome, compress the folder
+	# firefox about:debugging
 
 background-script:
 	tsc --project background/tsconfig.json

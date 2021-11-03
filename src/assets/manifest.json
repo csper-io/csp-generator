@@ -8,7 +8,7 @@
             "strict_min_version": "57.0"
         }
     },
-    "version": "0.7",
+    "version": "0.11",
     "description": "Automatically generate content security policy headers online for any website.",
     "icons": {
         "128": "assets/csper_128.png"
@@ -28,7 +28,7 @@
         "tabs",
         "storage"
     ],
-    "content_security_policy": "script-src  'self'; object-src 'none'; connect-src wss://csper.io wss://csper.club https://csper.io https://csper.club",
+    "content_security_policy": "script-src  'self'; object-src 'none'; connect-src wss://csper.io wss://csper.club https://csper.io https://csper.club http://localhost:8080 ws://localhost:8080",
     "author": "Stuart Larsen",
     "homepage_url": "https://csper.io",
     "background": {

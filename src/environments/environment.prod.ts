@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  origin: "https://csper.club",
-  wsOrigin: "csper.club"
+  origin: "https://csper.io",
+  wsOrigin: "wss://csper.io",
 };

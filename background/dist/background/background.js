@@ -32,3 +32,4 @@ chrome.webRequest.onHeadersReceived.addListener(function (details) {
     }
     return { responseHeaders: out };
 }, { urls: ['<all_urls>'] }, ['blocking', 'responseHeaders']);
+export {};
